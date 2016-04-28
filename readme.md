@@ -1,7 +1,11 @@
 Contacts:
+
 Oindril ­ duttaoindril@gmail.com 408­658­8961
+
 Eoin ­ eoinwilliammurphy@gmail.com 714­657­8523
+
 Nan ­ nanthana.thanonklin@sjsu.edu 415­676­1766
+
 Tom ­ thomas.ryan@sjsu.edu 901­219­3870
 
 Orange ­ Oindril
