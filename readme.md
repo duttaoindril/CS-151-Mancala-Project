@@ -1,11 +1,14 @@
-CONTACTS:
+Contacts:
 =========
 Oindril: duttaoindril@gmail.com; 408-658-8961
+
 Eoin: eoinwilliammurphy@gmail.com; 714-657-8523
+
 Nan: nanthana.thanonklin@sjsu.edu; 415-676-1766
+
 Tom: thomas.ryan@sjsu.edu; 901-219-3870
 
-GAME RULES:
+Game Rules:
 ===========
 1. board has 12 pits (6 per player), 2 mancala, and N stones 
 2. if player has stones left on their side then player can select one pit to play
