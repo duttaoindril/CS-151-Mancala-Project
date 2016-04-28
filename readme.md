@@ -5,8 +5,11 @@ Nan ­ nanthana.thanonklin@sjsu.edu 415­676­1766
 Tom ­ thomas.ryan@sjsu.edu 901­219­3870
 
 Orange ­ Oindril
+
 Black ­ Tom
+
 Blue ­ Nan
+
 Red ­ Eoin
 
 GAME RULES
