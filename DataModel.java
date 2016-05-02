@@ -6,8 +6,10 @@ import javax.swing.*;
 
 public class DataModel {
     private ArrayList<ChangeListener> listeners;
+    private Pit[] pits;
 
     public DataModel() {
+        pits = new Pit[12];
         listeners = new ArrayList<ChangeListener>();
     }
 
