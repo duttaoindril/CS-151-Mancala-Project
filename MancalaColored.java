@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MancalaColored implements MancalaColor {
+public class MancalaColored implements MancalaAlter {
     private Color color;
 
     public MancalaColored(Color c) {
@@ -17,8 +17,8 @@ public class MancalaColored implements MancalaColor {
     }
 
     public void setColors(MancalaGUI g, Color c) {
-        g.getPanel().setForeground(c);
-        g.getPanel().setBackground(c);
+        g.getPanel("btns").setForeground(c);
+        g.getPanel("btns").setBackground(c);
         //ADD MORE THINGS TO COLOR
     }
 }

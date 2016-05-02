@@ -4,7 +4,7 @@
 public class ProjectTester {
 	public static void main(String[] args){
 		DataModel d = new DataModel();
-		MancalaGUI g = new MancalaGUI(new MancalaColorRed());
+		MancalaGUI g = new MancalaGUI(new MancalaColorOrange());
 		Controller c = new Controller(g, d);
 	}
 }

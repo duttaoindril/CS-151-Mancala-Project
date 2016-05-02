@@ -25,11 +25,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class MancalaGUI {
     private JFrame mancalaFrame;
+    private JPanel btnPnl;
     private JPanel pitPanel;
     private JButton[] pitButtons;
     private JButton opponentScore;
     private JButton playerScore;
     private JButton endTurn;
+    private JButton undo;
     private JButton quit;
 
     public MancalaGUI() {
@@ -46,6 +48,9 @@ public class MancalaGUI {
         //End Turn Button
         endTurn = new JButton("End Turn Player A");
         endTurn.setBorder(new EmptyBorder(10, 10, 10, 10));
+        //Undo Button
+        undo = new JButton("Undo");
+        undo.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quit Button
         quit = new JButton("Quit Game");
         quit.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -56,7 +61,7 @@ public class MancalaGUI {
         //Init of pit buttons
         JButton tmpBtn;
         for(int i = 0; i < pitButtons.length; i++) {
-			tmpBtn = new JButton("0");
+			tmpBtn = new JButton("4");
             if(i < 6)
                 tmpBtn.setEnabled(false);
 			tmpBtn.setBorderPainted(false);
@@ -65,12 +70,16 @@ public class MancalaGUI {
 			pitButtons[i] = tmpBtn;
 			pitPanel.add(pitButtons[i]);
 		}
+        //JPanel Button Panel for Undo & EndTurn
+        btnPnl = new JPanel();
+        btnPnl.add(undo, BorderLayout.NORTH);
+        btnPnl.add(endTurn, BorderLayout.SOUTH);
         //Frame Init
         mancalaFrame = new JFrame();
 		mancalaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mancalaFrame.setSize(200, 400);
         mancalaFrame.add(quit, BorderLayout.NORTH);
-        mancalaFrame.add(endTurn, BorderLayout.SOUTH);
+        mancalaFrame.add(btnPnl, BorderLayout.SOUTH);
 		mancalaFrame.add(pitPanel, BorderLayout.CENTER);
         mancalaFrame.add(playerScore, BorderLayout.EAST);
         mancalaFrame.add(opponentScore, BorderLayout.WEST);
@@ -79,7 +88,7 @@ public class MancalaGUI {
 		mancalaFrame.pack();
     }
 
-    public MancalaGUI(MancalaColor c) {
+    public MancalaGUI(MancalaAlter c) {
         this();
         c.alter(this);
     }
@@ -88,21 +97,27 @@ public class MancalaGUI {
         return mancalaFrame;
     }
 
-    public JPanel getPanel() {
-        return pitPanel;
+    public JPanel getPanel(String i) {
+        if(i.equals("pits"))
+            return pitPanel;
+        else if(i.equals("btns"))
+            return btnPnl;
+        return null;
     }
 
     public JButton[] getPits() {
         return pitButtons;
     }
 
-    public JButton getScore(String i) {
+    public JButton getButton(String i) {
         if(i.equals("player"))
             return playerScore;
         else if(i.equals("opponent"))
             return opponentScore;
         else if(i.equals("end"))
             return endTurn;
+        else if(i.equals("undo"))
+            return undo;
         else if(i.equals("quit"))
             return quit;
         else return null;
