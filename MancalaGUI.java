@@ -28,21 +28,21 @@ public class MancalaGUI {
     private JPanel btnPnl;
     private JPanel pitPanel;
     private PitButton[] pitButtons;
-    private JButton opponentScore;
-    private JButton playerScore;
+    private JButton playerBScore;
+    private JButton playerAScore;
     private JButton endTurn;
     private JButton undo;
     private JButton quit;
 
     public MancalaGUI() {
-        //Player Score Button
-        playerScore = new JButton("0");
-        playerScore.setEnabled(false);
-        playerScore.setBorder(new EmptyBorder(10, 10, 10, 10));
-        //Opponent Score Button
-        opponentScore = new JButton("0");
-        opponentScore.setEnabled(false);
-        opponentScore.setBorder(new EmptyBorder(10, 10, 10, 10));
+        //PlayerA Score Button
+        playerAScore = new JButton("0");
+        playerAScore.setEnabled(false);
+        playerAScore.setBorder(new EmptyBorder(10, 10, 10, 10));
+        //playerB Score Button
+        playerBScore = new JButton("0");
+        playerBScore.setEnabled(false);
+        playerBScore.setBorder(new EmptyBorder(10, 10, 10, 10));
         //End Turn Button
         endTurn = new JButton("End Turn Player A");
         endTurn.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -60,7 +60,7 @@ public class MancalaGUI {
         pitButtons = new PitButton[12];
         PitButton tmpBtn;
         for(int i = 0; i < pitButtons.length; i++) {
-			tmpBtn = new PitButton("4", i+1);
+			tmpBtn = new PitButton("3", i);
             if(i < 6)
                 tmpBtn.setEnabled(false);
 			tmpBtn.setBorderPainted(false);
@@ -80,8 +80,8 @@ public class MancalaGUI {
         mancalaFrame.add(quit, BorderLayout.NORTH);
         mancalaFrame.add(btnPnl, BorderLayout.SOUTH);
 		mancalaFrame.add(pitPanel, BorderLayout.CENTER);
-        mancalaFrame.add(playerScore, BorderLayout.EAST);
-        mancalaFrame.add(opponentScore, BorderLayout.WEST);
+        mancalaFrame.add(playerAScore, BorderLayout.EAST);
+        mancalaFrame.add(playerBScore, BorderLayout.WEST);
 		mancalaFrame.pack();
         mancalaFrame.setSize(550, 250);
         mancalaFrame.setResizable(false);
@@ -110,10 +110,10 @@ public class MancalaGUI {
     }
 
     public JButton getButton(String i) {
-        if(i.equals("player"))
-            return playerScore;
-        else if(i.equals("opponent"))
-            return opponentScore;
+        if(i.equals("playerA"))
+            return playerAScore;
+        else if(i.equals("playerB"))
+            return playerBScore;
         else if(i.equals("end"))
             return endTurn;
         else if(i.equals("undo"))

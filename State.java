@@ -3,12 +3,17 @@ public class State {
     private int playerB;
     private boolean playerTurn;
     private int[] pitPoints;
+    private boolean izNull = false;
 
     public State(DataModel d) {
-        playerA = d.getPlayerAScore();
-        playerB = d.getPlayerBScore();
-        pitPoints = d.getPits();
-        playerTurn = d.getPlayerTurn();
+        if(d == null)
+            izNull = true;
+        else {
+            playerA = d.getPlayerAScore();
+            playerB = d.getPlayerBScore();
+            pitPoints = d.getPits();
+            playerTurn = d.getPlayerTurn();
+        }
     }
 
 	public State(int[] data, boolean player) {
@@ -17,6 +22,10 @@ public class State {
         playerB = data[1];
         for(int i = 0; i < pitPoints.length; i++)
             pitPoints[i] = data[i+2];
+    }
+
+    public boolean isNull() {
+        return izNull;
     }
 
     public int[] getPits() {

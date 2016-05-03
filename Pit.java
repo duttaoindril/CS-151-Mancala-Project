@@ -1,8 +1,8 @@
 public class Pit {
     private int score;
 
-	public Pit() {
-        score = 0;
+	public Pit(int i) {
+        score = i;
     }
 
     public int getScore() {
