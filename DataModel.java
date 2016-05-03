@@ -132,9 +132,9 @@ public class DataModel {
                     stones++;
                 i = 5;
                 forward = true;
-            } else {
+            } else //{
                 pits[i].setScore(pits[i].getScore()+1);
-            }
+            //}
             stones--;
         }
         update();
