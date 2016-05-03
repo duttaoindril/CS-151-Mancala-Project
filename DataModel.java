@@ -50,6 +50,10 @@ public class DataModel {
         return scores;
     }
 
+    public int getPitScore(int i) {
+        return pits[i].getScore();
+    }
+
     public void switchTurn() {
         playerTurn = !playerTurn;
         update();
@@ -60,7 +64,7 @@ public class DataModel {
     }
 
     public void clicked(int i) {
-        System.out.println(i);
+        update();
     }
 
     public void reset(State s) {

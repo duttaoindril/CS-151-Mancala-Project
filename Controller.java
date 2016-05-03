@@ -46,9 +46,12 @@ public class Controller implements ChangeListener {
         else
             gui.getButton("end").setText("End Turn Player B");
         for(int i = 0; i < gui.getPits().length; i++)
-            if(i < 6)
+            if(i < 6) {
                 gui.getPits()[i].setEnabled(!dataModel.getPlayerTurn());
-            else
+                gui.getPits()[i].setText("B"+(i+1)+": "+dataModel.getPitScore(i));
+            } else {
                 gui.getPits()[i].setEnabled(dataModel.getPlayerTurn());
+                gui.getPits()[i].setText("A"+(i-5)+": "+dataModel.getPitScore(i));
+            }
     }
 }

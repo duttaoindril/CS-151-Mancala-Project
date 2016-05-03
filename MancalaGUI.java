@@ -82,9 +82,10 @@ public class MancalaGUI {
 		mancalaFrame.add(pitPanel, BorderLayout.CENTER);
         mancalaFrame.add(playerScore, BorderLayout.EAST);
         mancalaFrame.add(opponentScore, BorderLayout.WEST);
-		mancalaFrame.setVisible(true);
-		mancalaFrame.setResizable(false);
 		mancalaFrame.pack();
+        mancalaFrame.setSize(550, 250);
+        mancalaFrame.setResizable(false);
+        mancalaFrame.setVisible(true);
     }
 
     public MancalaGUI(MancalaAlter c) {
