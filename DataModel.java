@@ -12,12 +12,14 @@ public class DataModel {
     private Pit[] pits;
     private State[] states;
     private boolean switchTurn;
+    private boolean gameEnd;
 
     public DataModel() {
         playerA = 0;
         playerB = 0;
         playerTurn = true;
         switchTurn = false;
+        gameEnd = false;
         pits = new Pit[12];
         for(int i = 0; i < pits.length; i++)
             pits[i] = new Pit(3);
@@ -87,6 +89,8 @@ public class DataModel {
 
     public void switchTurn() {
         playerTurn = !playerTurn;
+        for(int i = 0; i < states.length; i++)
+            states[i] = new State(null);
         switchTurn = false;
         update();
     }
@@ -133,19 +137,31 @@ public class DataModel {
             }
             stones--;
         }
+        update();
+        gameEnd = true;
+        int k = 0;
+        if(playerTurn)
+           k = 6;
+        //System.out.println(k);
+        for(int j = k; j < k+6; j++) {
+            if(pits[j].getScore() > 0)
+                gameEnd = false;
+            //System.out.println(pits[j].getScore());
+        }
+        //System.out.println(gameEnd);
         if((playerTurn && i < 6) || (!playerTurn && i > 5))
             switchTurn = true;
-        // else if(playerTurn) {
-        //     playerA += pits[i].getScore();
-        //     pits[i].setScore(0);
-        //     playerA += pits[i-6].getScore();
-        //     pits[i-6].setScore(0);
-        // } else {
-        //     playerB += pits[i].getScore();
-        //     pits[i].setScore(0);
-        //     playerB += pits[i+6].getScore();
-        //     pits[i+6].setScore(0);
-        // }
+        else if(playerTurn && i < 12 && forward && pits[i].getScore() == 1) {
+            playerA += pits[i].getScore();
+            pits[i].setScore(0);
+            playerA += pits[i-6].getScore();
+            pits[i-6].setScore(0);
+        } else if(!playerTurn && i > -1 && !forward && pits[i].getScore() == 1){
+            playerB += pits[i].getScore();
+            pits[i].setScore(0);
+            playerB += pits[i+6].getScore();
+            pits[i+6].setScore(0);
+        }
         update();
         return true;
     }
