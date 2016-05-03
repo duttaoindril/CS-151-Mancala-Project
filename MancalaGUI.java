@@ -27,7 +27,7 @@ public class MancalaGUI {
     private JFrame mancalaFrame;
     private JPanel btnPnl;
     private JPanel pitPanel;
-    private JButton[] pitButtons;
+    private PitButton[] pitButtons;
     private JButton opponentScore;
     private JButton playerScore;
     private JButton endTurn;
@@ -35,8 +35,6 @@ public class MancalaGUI {
     private JButton quit;
 
     public MancalaGUI() {
-        //Pit Buttons Array
-        pitButtons = new JButton[12];
         //Player Score Button
         playerScore = new JButton("0");
         playerScore.setEnabled(false);
@@ -58,10 +56,11 @@ public class MancalaGUI {
 		pitPanel = new JPanel();
 		pitPanel.setLayout(new GridLayout(2, 6));
 		pitPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        //Init of pit buttons
-        JButton tmpBtn;
+        //Init of Pit Buttons Array
+        pitButtons = new PitButton[12];
+        PitButton tmpBtn;
         for(int i = 0; i < pitButtons.length; i++) {
-			tmpBtn = new JButton("4");
+			tmpBtn = new PitButton("4", i+1);
             if(i < 6)
                 tmpBtn.setEnabled(false);
 			tmpBtn.setBorderPainted(false);
@@ -105,7 +104,7 @@ public class MancalaGUI {
         return null;
     }
 
-    public JButton[] getPits() {
+    public PitButton[] getPits() {
         return pitButtons;
     }
 

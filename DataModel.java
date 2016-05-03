@@ -55,6 +55,14 @@ public class DataModel {
         update();
     }
 
+    public void popUndo() {
+        update();
+    }
+
+    public void clicked(int i) {
+        System.out.println(i);
+    }
+
     public void reset(State s) {
         for(int i = 0; i < pits.length; i++)
             pits[i].setScore(s.getPits()[i]);

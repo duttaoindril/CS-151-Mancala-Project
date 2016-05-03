@@ -16,7 +16,17 @@ public class Controller implements ChangeListener {
     }
 
     public void attachControllers() {
-
+        for(PitButton btn : gui.getPits())
+            btn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dataModel.clicked(btn.getIndex());
+                }
+            });
+        gui.getButton("undo").addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dataModel.popUndo();
+            }
+        });
         gui.getButton("end").addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dataModel.switchTurn();
