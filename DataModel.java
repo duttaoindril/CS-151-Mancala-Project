@@ -139,16 +139,23 @@ public class DataModel {
         }
         update();
         gameEnd = true;
-        int k = 0;
-        if(playerTurn)
-           k = 6;
         //System.out.println(k);
-        for(int j = k; j < k+6; j++) {
+        for(int j = 0; j < pits.length; j++) //{
             if(pits[j].getScore() > 0)
                 gameEnd = false;
             //System.out.println(pits[j].getScore());
-        }
+        //}
         //System.out.println(gameEnd);
+        if(gameEnd) {
+            for(int j = 0; j < pits.length/2; j++) {
+                playerB += pits[i].getScore();
+                pits[i].setScore(0);
+            } for(int j = pits.length/2; j < pits.length; j++) {
+                playerA += pits[i].getScore();
+                pits[i].setScore(0);
+            }
+        }
+
         if((playerTurn && i < 6) || (!playerTurn && i > 5))
             switchTurn = true;
         else if(playerTurn && i < 12 && forward && pits[i].getScore() == 1) {
