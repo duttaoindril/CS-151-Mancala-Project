@@ -162,7 +162,6 @@ public class DataModel {
             	stoneCount+= "| ";
         }
         System.out.println(stoneCount);
-
         boolean gameEndA = true;
         boolean gameEndB = true;
         for(int j = 0; j < pits.length/2; j++)
@@ -180,6 +179,7 @@ public class DataModel {
                 playerAScore += pits[j].getScore();
                 pits[j].setScore(0);
             }
+            update();
             JOptionPane.showMessageDialog(null, "Game Over!");
             endGame();
         }
