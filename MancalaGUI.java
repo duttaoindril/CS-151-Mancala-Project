@@ -85,6 +85,7 @@ public class MancalaGUI {
 		mancalaFrame.pack();
         mancalaFrame.setSize(550, 250);
         mancalaFrame.setResizable(false);
+        mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
     }
 

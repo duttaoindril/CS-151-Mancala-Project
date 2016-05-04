@@ -19,9 +19,8 @@ public class Controller implements ChangeListener {
         for(PitButton btn : gui.getPits())
             btn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    State s = new State(dataModel);
-                    if(dataModel.clicked(btn.getIndex()))
-                        dataModel.addState(s);
+                    dataModel.replaceState(new State(dataModel));
+                    dataModel.clicked(btn.getIndex());
                     dataModel.update();
                 }
             });
@@ -44,9 +43,9 @@ public class Controller implements ChangeListener {
     }
 
     public void stateChanged(ChangeEvent e) {
-        gui.getButton("playerA").setText(""+dataModel.getPlayerAScore());
-        gui.getButton("playerB").setText(""+dataModel.getPlayerBScore());
-        gui.getButton("undo").setEnabled(dataModel.getStateCount() != 0);
+        gui.getButton("playerA").setText("A: "+dataModel.getPlayerAScore());
+        gui.getButton("playerB").setText("B: "+dataModel.getPlayerBScore());
+        gui.getButton("undo").setEnabled(!dataModel.getLatestState().isNull() && dataModel.getUndosLeft() > 0);
         gui.getButton("end").setEnabled(dataModel.getSwitch());
         if(dataModel.getPlayerTurn())
             gui.getButton("end").setText("End Turn Player A");

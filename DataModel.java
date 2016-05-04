@@ -10,22 +10,20 @@ public class DataModel {
     private int playerB;
     private boolean playerTurn; // True means player A, false means player B
     private Pit[] pits;
-    private State[] states;
+    private State latestState;
     private boolean switchTurn;
-    private boolean gameEnd;
+    private int undosLeft;
 
     public DataModel() {
+        undosLeft = 3;
         playerA = 0;
         playerB = 0;
         playerTurn = true;
         switchTurn = false;
-        gameEnd = false;
         pits = new Pit[12];
         for(int i = 0; i < pits.length; i++)
             pits[i] = new Pit(3);
-        states = new State[3];
-        for(int i = 0; i < states.length; i++)
-            states[i] = new State(null);
+        latestState = new State(null);
         listeners = new ArrayList<ChangeListener>();
     }
 
@@ -65,50 +63,47 @@ public class DataModel {
         return pits[i].getScore();
     }
 
-    public int getStateCount() {
-        int count = 0;
-        for(int i = 0; i < states.length; i++)
-            if(!states[i].isNull())
-                count++;
-            else
-                return count;
-        return count;
+    public State getLatestState() {
+        return latestState;
     }
 
-    public State[] getStates() {
-        return states;
+    public int getUndosLeft() {
+        return undosLeft;
     }
 
-    public void addState(State s) {
-        for(int i = states.length-1; i > -1; i--)
-            if(i == 0)
-                states[i] = s;
-            else
-                states[i] = states[i-1];
+    public void replaceState(State s) {
+        latestState = s;
     }
 
-    public void switchTurn() {
-        playerTurn = !playerTurn;
-        for(int i = 0; i < states.length; i++)
-            states[i] = new State(null);
+    public void reset(State s) {
+        for(int i = 0; i < pits.length; i++)
+            pits[i].setScore(s.getPits()[i]);
+        playerA = s.getAScore();
+        playerB = s.getBScore();
+        playerTurn = s.getTurn(); // True means player A, false means player B
         switchTurn = false;
         update();
     }
 
     public void popUndo() {
-        reset(states[0]);
-        for(int i = 0; i < states.length; i++)
-            if(i == states.length-1)
-                states[i] = new State(null);
-            else
-                states[i] = states[i+1];
+        if(undosLeft > 0) {
+            reset(latestState);
+            latestState = new State(null);
+            undosLeft--;
+        }
         update();
     }
 
-    public boolean clicked(int i) {
+    public void switchTurn() {
+        playerTurn = !playerTurn;
+        undosLeft = 3;
+        latestState = new State(null);
+        switchTurn = false;
+        update();
+    }
+
+    public void clicked(int i) {
         int stones = pits[i].getScore();
-        if(stones == 0)
-            return false;
         pits[i].setScore(0);
         boolean forward = true;
         if(i < 6)
@@ -132,30 +127,10 @@ public class DataModel {
                     stones++;
                 i = 5;
                 forward = true;
-            } else //{
+            } else
                 pits[i].setScore(pits[i].getScore()+1);
-            //}
             stones--;
         }
-        update();
-        gameEnd = true;
-        //System.out.println(k);
-        for(int j = 0; j < pits.length; j++) //{
-            if(pits[j].getScore() > 0)
-                gameEnd = false;
-            //System.out.println(pits[j].getScore());
-        //}
-        //System.out.println(gameEnd);
-        if(gameEnd) {
-            for(int j = 0; j < pits.length/2; j++) {
-                playerB += pits[i].getScore();
-                pits[i].setScore(0);
-            } for(int j = pits.length/2; j < pits.length; j++) {
-                playerA += pits[i].getScore();
-                pits[i].setScore(0);
-            }
-        }
-
         if((playerTurn && i < 6) || (!playerTurn && i > 5))
             switchTurn = true;
         else if(playerTurn && i < 12 && forward && pits[i].getScore() == 1) {
@@ -169,17 +144,43 @@ public class DataModel {
             playerB += pits[i+6].getScore();
             pits[i+6].setScore(0);
         }
+
+        String s = " ";
+        for(int j = 0; j < 12; j++) {
+            s += pits[j].getScore()+" ";
+            if(j == 5)
+                s+= "| ";
+        }
+        System.out.println(s);
+
+        boolean gameEndA = true;
+        boolean gameEndB = true;
+        for(int j = 0; j < pits.length/2; j++)
+            if(pits[j].getScore() > 0)
+                gameEndB = false;
+        for(int j = pits.length/2; j < pits.length; j++)
+            if(pits[j].getScore() > 0)
+                gameEndA = false;
+        System.out.println(gameEndA+" "+gameEndB);
+        if(gameEndA || gameEndB) {
+            for(int j = 0; j < pits.length/2; j++) {
+                playerB += pits[j].getScore();
+                pits[j].setScore(0);
+            } for(int j = pits.length/2; j < pits.length; j++) {
+                playerA += pits[j].getScore();
+                pits[j].setScore(0);
+            }
+            JOptionPane.showMessageDialog(null, "Game Over!");
+            endGame();
+        }
         update();
-        return true;
     }
 
-    public void reset(State s) {
-        for(int i = 0; i < pits.length; i++)
-            pits[i].setScore(s.getPits()[i]);
-        playerA = s.getAScore();
-        playerB = s.getBScore();
-        playerTurn = s.getTurn(); // True means player A, false means player B
-        switchTurn = false;
-        update();
+    public void endGame() {
+        String s = "The winner is Player B! Good Job! The Game will now quit.";
+        if(playerA > playerB)
+            s = "The winner is Player A! Good Job! The Game will now quit.";
+        JOptionPane.showMessageDialog(null, s);
+        System.exit(0);
     }
 }
