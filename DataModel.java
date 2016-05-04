@@ -6,8 +6,8 @@ import javax.swing.*;
 
 public class DataModel {
     private ArrayList<ChangeListener> listeners;
-    private int playerA;
-    private int playerB;
+    private int playerAScore;
+    private int playerBScore;
     private boolean playerTurn; // True means player A, false means player B
     private Pit[] pits;
     private State latestState;
@@ -16,8 +16,8 @@ public class DataModel {
 
     public DataModel() {
         undosLeft = 3;
-        playerA = 0;
-        playerB = 0;
+        playerAScore = 0;
+        playerBScore = 0;
         playerTurn = true;
         switchTurn = false;
         pits = new Pit[12];
@@ -45,11 +45,11 @@ public class DataModel {
     }
 
     public int getPlayerAScore() {
-        return playerA;
+        return playerAScore;
     }
 
     public int getPlayerBScore() {
-        return playerB;
+        return playerBScore;
     }
 
     public int[] getPits() {
@@ -75,12 +75,12 @@ public class DataModel {
         latestState = s;
     }
 
-    public void reset(State s) {
+    public void reset(State state) {
         for(int i = 0; i < pits.length; i++)
-            pits[i].setScore(s.getPits()[i]);
-        playerA = s.getAScore();
-        playerB = s.getBScore();
-        playerTurn = s.getTurn(); // True means player A, false means player B
+            pits[i].setScore(state.getPits()[i]);
+        playerAScore = state.getAScore();
+        playerBScore = state.getBScore();
+        playerTurn = state.getTurn(); // True means player A, false means player B
         switchTurn = false;
         update();
     }
@@ -102,56 +102,66 @@ public class DataModel {
         update();
     }
 
-    public void clicked(int i) {
-        int stones = pits[i].getScore();
-        pits[i].setScore(0);
+    public void clicked(int pit) {
+        int stones = pits[pit].getScore();
+        pits[pit].setScore(0);
         boolean forward = true;
-        if(i < 6)
+        boolean freeTurn = false;
+        if(pit < 6)
             forward = false;
         while(stones > 0) {
             if(forward)
-                i++;
+            	pit++;
             else
-                i--;
-            if(i == 12) {
-                if(playerTurn)
-                    playerA++;
+            	pit--;
+            if(pit == 12) {
+                if(stones == 1)
+                	freeTurn = true;
+            	if(playerTurn)
+                    playerAScore++;
                 else
                     stones++;
-                i = 6;
+                pit = 6;
                 forward = false;
-            } else if(i == -1) {
+            } else if(pit == -1) {
+                if(stones == 1)
+                	freeTurn = true;
                 if(!playerTurn)
-                    playerB++;
+                    playerBScore++;
                 else
                     stones++;
-                i = 5;
+                pit = 5;
                 forward = true;
             } else
-                pits[i].setScore(pits[i].getScore()+1);
+                pits[pit].setScore(pits[pit].getScore()+1);
             stones--;
         }
-        if((playerTurn && i < 6) || (!playerTurn && i > 5))
+        
+        if((playerTurn && !freeTurn) || (!playerTurn && !freeTurn))
             switchTurn = true;
-        else if(playerTurn && i < 12 && forward && pits[i].getScore() == 1) {
-            playerA += pits[i].getScore();
-            pits[i].setScore(0);
-            playerA += pits[i-6].getScore();
-            pits[i-6].setScore(0);
-        } else if(!playerTurn && i > -1 && !forward && pits[i].getScore() == 1){
-            playerB += pits[i].getScore();
-            pits[i].setScore(0);
-            playerB += pits[i+6].getScore();
-            pits[i+6].setScore(0);
+        if(playerTurn && pit < 12 && forward && pits[pit].getScore() == 1) {
+            playerAScore += pits[pit].getScore();
+            pits[pit].setScore(0);
+            playerAScore += pits[pit-6].getScore();
+            pits[pit-6].setScore(0);
+        } else if(!playerTurn && pit > -1 && !forward && pits[pit].getScore() == 1){
+            playerBScore += pits[pit].getScore();
+            pits[pit].setScore(0);
+            playerBScore += pits[pit+6].getScore();
+            pits[pit+6].setScore(0);
         }
+        
+//        if((playerTurn && pit < 6) || (!playerTurn && pit > 5))
+//            switchTurn = true;
+//        else if(playerTurn && pit < 12 && forward && pits[pit].getScore() == 1) {
 
-        String s = " ";
+        String stoneCount = " ";
         for(int j = 0; j < 12; j++) {
-            s += pits[j].getScore()+" ";
+        	stoneCount += pits[j].getScore()+" ";
             if(j == 5)
-                s+= "| ";
+            	stoneCount+= "| ";
         }
-        System.out.println(s);
+        System.out.println(stoneCount);
 
         boolean gameEndA = true;
         boolean gameEndB = true;
@@ -164,10 +174,10 @@ public class DataModel {
         System.out.println(gameEndA+" "+gameEndB);
         if(gameEndA || gameEndB) {
             for(int j = 0; j < pits.length/2; j++) {
-                playerB += pits[j].getScore();
+                playerBScore += pits[j].getScore();
                 pits[j].setScore(0);
             } for(int j = pits.length/2; j < pits.length; j++) {
-                playerA += pits[j].getScore();
+                playerAScore += pits[j].getScore();
                 pits[j].setScore(0);
             }
             JOptionPane.showMessageDialog(null, "Game Over!");
@@ -178,7 +188,7 @@ public class DataModel {
 
     public void endGame() {
         String s = "The winner is Player B! Good Job! The Game will now quit.";
-        if(playerA > playerB)
+        if(playerAScore > playerBScore)
             s = "The winner is Player A! Good Job! The Game will now quit.";
         JOptionPane.showMessageDialog(null, s);
         System.exit(0);
