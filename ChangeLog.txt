@@ -1,0 +1,18 @@
+Creating this file to keep track of any significant changes made to the project. That way we all know the business.
+You don't have to use it but if you'd like to, then sweet.
+
+Wed 5/4
+TRyan
+  Changed a few variable names just so I could follow the code more easily (will probably help Dr. Kim too so win win)
+  Made a couple changes to the game logic (not much code was changed and I left the old version as a comment for now)
+  
+  DataModel
+    - Changed playerA to playerAScore
+    - Changed playerB to playerBScore
+  DataModel.clicked():
+    - Changed int parameter i to pit
+    - Changed String variable s to stoneCount
+    - Changed game rules so that if the last stone lands in a player's own Mancala, they get a 
+    free turn. Otherwise, only one play is allowed per turn (other than undos).
+    - Changed an "else if" to "if" to unlock the logic hidden within. Can now collect opponents 
+    stones if a player's stone lands in one of their own empty pits
