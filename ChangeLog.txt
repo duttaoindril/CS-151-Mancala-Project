@@ -9,10 +9,19 @@ TRyan
   DataModel
     - Changed playerA to playerAScore
     - Changed playerB to playerBScore
-  DataModel.clicked():
+  DataModel.clicked()
     - Changed int parameter i to pit
     - Changed String variable s to stoneCount
     - Changed game rules so that if the last stone lands in a player's own Mancala, they get a 
     free turn. Otherwise, only one play is allowed per turn (other than undos).
     - Changed an "else if" to "if" to unlock the logic hidden within. Can now collect opponents 
     stones if a player's stone lands in one of their own empty pits
+
+Thu 5/5
+TRyan
+  Made a couple changes to MancalaGUI to allow for 
+  
+MancalaGUI
+  - Added native look and feel to GUI
+  - Added "Change Board" button to a panel with the "Quit" button (Quit button is still in the North)
+  - Added temp call to the start menu so it launches with the game. We can make it a JPanel later or whatever works best
