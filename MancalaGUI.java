@@ -29,11 +29,13 @@ public class MancalaGUI {
     private JFrame mancalaFrame;
     private JPanel btnPnl;
     private JPanel pitPanel;
+    private JPanel menuPanel;
     private PitButton[] pitButtons;
-    private JButton playerBScore;
-    private JButton playerAScore;
+    private JTextArea playerBScore;
+    private JTextArea playerAScore;
     private JButton endTurn;
     private JButton undo;
+    private JButton changeBoardBtn;
     private JButton quit;
 
     public MancalaGUI() {
@@ -50,12 +52,12 @@ public class MancalaGUI {
 			e.printStackTrace();
 		}
     	
-        //PlayerA Score Button
-        playerAScore = new JButton("0");
+        //PlayerA Score area
+        playerAScore = new JTextArea("0");
         playerAScore.setEnabled(false);
         playerAScore.setBorder(new EmptyBorder(10, 10, 10, 10));
-        //playerB Score Button
-        playerBScore = new JButton("0");
+        //playerB Score area
+        playerBScore = new JTextArea("0");
         playerBScore.setEnabled(false);
         playerBScore.setBorder(new EmptyBorder(10, 10, 10, 10));
         //End Turn Button
@@ -64,6 +66,9 @@ public class MancalaGUI {
         //Undo Button
         undo = new JButton("Undo");
         undo.setBorder(new EmptyBorder(10, 10, 10, 10));
+        //Change board button
+        changeBoardBtn = new JButton("Change Board");
+        changeBoardBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quit Button
         quit = new JButton("Quit Game");
         quit.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -93,11 +98,15 @@ public class MancalaGUI {
         btnPnl = new JPanel();
         btnPnl.add(undo, BorderLayout.NORTH);
         btnPnl.add(endTurn, BorderLayout.SOUTH);
+        //JPanel for Quit and Change Board buttons
+        menuPanel = new JPanel();
+        menuPanel.add(changeBoardBtn);
+        menuPanel.add(quit);
         //Frame Init
         mancalaFrame = new JFrame();
 		mancalaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mancalaFrame.setSize(200, 400);
-        mancalaFrame.add(quit, BorderLayout.NORTH);
+        mancalaFrame.add(menuPanel, BorderLayout.NORTH);
         mancalaFrame.add(btnPnl, BorderLayout.SOUTH);
 		mancalaFrame.add(pitPanel, BorderLayout.CENTER);
         mancalaFrame.add(playerAScore, BorderLayout.EAST);
@@ -107,39 +116,54 @@ public class MancalaGUI {
         mancalaFrame.setResizable(false);
         mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
+        
+        // Doing this for now
+        startPanel.requestFocus();
     }
 
-    public MancalaGUI(MancalaAlter c) {
+    public MancalaGUI(MancalaAlter alterGUI) {
         this();
-        c.alter(this);
+        alterGUI.alter(this);
     }
 
+    public void changeBoard(MancalaAlter alterGUI) {
+    	alterGUI.alter(this);
+    }
+    
     public JFrame getFrame() {
         return mancalaFrame;
     }
 
-    public JPanel getPanel(String i) {
-        if(i.equals("pits"))
+    public JPanel getPanel(String pnlRequest) {
+        if(pnlRequest.equals("pits"))
             return pitPanel;
-        else if(i.equals("btns"))
+        else if(pnlRequest.equals("btns"))
             return btnPnl;
+        else if(pnlRequest.equals("menu"))
+        	return menuPanel;
         return null;
     }
 
+    public JTextArea getMancalaA() {
+    	return playerAScore;
+    }
+    
+    public JTextArea getMancalaB() {
+    	return playerBScore;
+    }
+    
     public PitButton[] getPits() {
         return pitButtons;
     }
-
-    public JButton getButton(String i) {
-        if(i.equals("playerA"))
-            return playerAScore;
-        else if(i.equals("playerB"))
-            return playerBScore;
-        else if(i.equals("end"))
+    
+    public JButton getButton(String btnRequest) {
+        if(btnRequest.equals("end"))
             return endTurn;
-        else if(i.equals("undo"))
+        else if(btnRequest.equals("undo"))
             return undo;
-        else if(i.equals("quit"))
+        else if(btnRequest.equals("changeBoardBtn"))
+        	return changeBoardBtn;
+        else if(btnRequest.equals("quit"))
             return quit;
         else return null;
     }
