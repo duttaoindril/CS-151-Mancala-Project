@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -35,6 +37,19 @@ public class MancalaGUI {
     private JButton quit;
 
     public MancalaGUI() {
+    	// Telling GUI to use native look and feel for JComponents
+    	try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+    	
         //PlayerA Score Button
         playerAScore = new JButton("0");
         playerAScore.setEnabled(false);
@@ -69,6 +84,11 @@ public class MancalaGUI {
 			pitButtons[i] = tmpBtn;
 			pitPanel.add(pitButtons[i]);
 		}
+        
+        // Calling this here for now, so we can test it easily
+        // Later on it could be moved to a panel if needed
+        StartPanelGUI startPanel = new StartPanelGUI();
+        
         //JPanel Button Panel for Undo & EndTurn
         btnPnl = new JPanel();
         btnPnl.add(undo, BorderLayout.NORTH);
