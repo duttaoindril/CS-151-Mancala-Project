@@ -6,6 +6,7 @@ import javax.swing.*;
 public class Controller implements ChangeListener {
     private DataModel dataModel;
     private MancalaGUI gui;
+    private StartPanelGUI startScreen;
 
     public Controller(MancalaGUI g, DataModel d) {
         gui = g;
@@ -39,6 +40,42 @@ public class Controller implements ChangeListener {
                 System.out.println("Thank you!\n");
                 System.exit(0);
             }
+        });
+        startScreen.getRedBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterRed());
+        	}
+        });
+        startScreen.getOrangeBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterOrange());
+        	}
+        });
+        startScreen.getYellowBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterYellow());
+        	}
+        });
+        startScreen.getGreenBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterGreen());
+        	}
+        });
+        startScreen.getBlueBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterBlue());
+        	}
+        });
+        startScreen.getPurpleBtn().addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		gui.changeBoard(new AlterPurple());
+        	}
         });
     }
 
