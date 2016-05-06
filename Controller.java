@@ -42,48 +42,20 @@ public class Controller implements ChangeListener {
                 System.exit(0);
             }
         });
-        startPanel.getRedBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterRed());
-//        		startPanel.
-        	}
-        });
-        startPanel.getOrangeBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterOrange());
-        	}
-        });
-        startPanel.getYellowBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterYellow());
-        	}
-        });
-        startPanel.getGreenBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterGreen());
-        	}
-        });
-        startPanel.getBlueBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterBlue());
-        	}
-        });
-        startPanel.getPurpleBtn().addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e)
-        	{
-        		gui.changeBoard(new AlterPurple());
-        	}
+        gui.getButton("changeBoardBtn").addActionListener(new ActionListener() {
+
+        	//when clicking the changeBoard button, a new window is opened for the player to change the theme
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StyleSelectionFrame styleFrame = new StyleSelectionFrame();			
+			}
         });
         startPanel.getPlayBtn().addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gui.startGame();
+				dataModel.setStartingStones(startPanel.getStartStoneCount());
+				gui.startGame(startPanel.getStartBoardColor());
 			}
 		});
     }

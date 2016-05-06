@@ -1,8 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class MancalaGUI {
-    static JFrame mancalaFrame;//Nan edited visibility
+    private JFrame mancalaFrame;
     private JPanel btnPnl;
     private JPanel pitPanel;
     private JPanel menuPanel;
@@ -26,7 +23,6 @@ public class MancalaGUI {
     private JButton undo;
     private JButton changeBoardBtn;
     private JButton quit;
-  
 
     public MancalaGUI() {
     	// Telling GUI to use native look and feel for JComponents
@@ -56,20 +52,8 @@ public class MancalaGUI {
         //Undo Button
         undo = new JButton("Undo");
         undo.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
         //Change board button is used the change the style of the board during the game
         changeBoardBtn = new JButton("Change Board");
-        changeBoardBtn.addActionListener(new ActionListener() {
-
-        	//when clicking the changeBoard button, a new window is opened for the player to change the theme
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StyleSelectionFrame styleFrame = new StyleSelectionFrame();					
-			}    
-        });
-        
-        
-        
         changeBoardBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
         //Quit Button
         quit = new JButton("Quit Game");
@@ -78,10 +62,8 @@ public class MancalaGUI {
 		pitPanel = new JPanel();
 		pitPanel.setLayout(new GridLayout(2, 6));
 		pitPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		
         //Init of Pit Buttons Array
         pitButtons = new PitButton[12];
-        
         PitButton tmpBtn;
         for(int i = 0; i < pitButtons.length; i++) {
 			tmpBtn = new PitButton("3", i);
@@ -113,32 +95,24 @@ public class MancalaGUI {
         mancalaFrame = new JFrame();
 		mancalaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mancalaFrame.setSize(200, 400);
-		mancalaFrame.setLocationRelativeTo(null);//Nan edited
+		mancalaFrame.setLocationRelativeTo(null);
+		mancalaFrame.setTitle("Mancala");
 		mancalaFrame.add(gameBoardPanel);
 		mancalaFrame.pack();
         mancalaFrame.setSize(550, 250);
         mancalaFrame.setResizable(false);
         mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
-
         //Adding start panel and hiding game board until selections are made
         gameBoardPanel.setVisible(false);
         startPanel = new StartPanelGUI();
         mancalaFrame.add(startPanel);
         
-        //Game board is made visible after stone and color selection
-    }
-
-    public MancalaGUI(MancalaAlter alterGUI) {
-        this();
-        alterGUI.alter(this);
-    }
-
-    public void changeBoard(MancalaAlter alterGUI) {
-    	alterGUI.alter(this);
+        //Game board is made visible in Controller after stone and color selection
     }
     
-    public void startGame() {
+    public void startGame(MancalaAlter alterGUi) {
+    	alterGUi.alter(this);
     	startPanel.setVisible(false);
     	gameBoardPanel.setVisible(true);
     }

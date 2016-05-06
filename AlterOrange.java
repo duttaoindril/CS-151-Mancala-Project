@@ -17,7 +17,11 @@ public class AlterOrange implements MancalaAlter {
     	gui.getPanel("btns").setBackground(color);
     	gui.getPanel("menu").setBackground(color);
     	gui.getPanel("pits").setBackground(Color.DARK_GRAY);
-    	
+    	gui.getButton("undo").setBackground(color);
+    	gui.getButton("end").setBackground(color);
+    	gui.getButton("changeBoardBtn").setBackground(color);
+    	gui.getButton("quit").setBackground(color);
+
     	for(JButton pitBtn : gui.getPits()) {
     		pitBtn.setBackground(Color.LIGHT_GRAY);
     	}

@@ -13,6 +13,7 @@ public class DataModel {
     private State latestState;
     private boolean switchTurn;
     private int undosLeft;
+    private int startingStones;
 
     public DataModel() {
         undosLeft = 3;
@@ -20,9 +21,11 @@ public class DataModel {
         playerBScore = 0;
         playerTurn = true;
         switchTurn = false;
+        //Default number of stones per pit is 3
+        startingStones = 3;
         pits = new Pit[12];
         for(int i = 0; i < pits.length; i++)
-            pits[i] = new Pit(3);
+            pits[i] = new Pit(startingStones);
         latestState = new State(null);
         listeners = new ArrayList<ChangeListener>();
     }
@@ -52,6 +55,11 @@ public class DataModel {
         return playerBScore;
     }
 
+    public void setStartingStones(int numStones) {
+    	startingStones = numStones;
+    	update();
+    }
+    
     public int[] getPits() {
         int[] scores = new int[12];
         for(int i = 0; i < scores.length; i++)
@@ -150,10 +158,6 @@ public class DataModel {
             playerBScore += pits[pit+6].getScore();
             pits[pit+6].setScore(0);
         }
-        
-//        if((playerTurn && pit < 6) || (!playerTurn && pit > 5))
-//            switchTurn = true;
-//        else if(playerTurn && pit < 12 && forward && pits[pit].getScore() == 1) {
 
         String stoneCount = " ";
         for(int j = 0; j < 12; j++) {

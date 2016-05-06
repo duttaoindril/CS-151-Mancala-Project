@@ -13,33 +13,29 @@ import javax.swing.SpringLayout;
  * or during the game
  */
 public class StyleSelectionFrame extends JFrame implements MancalaAlter {
-	
-	private static final long serialVersionUID = 1L;
-	MancalaGUI mancalaFrame;
-	StartPanelGUI startPanel;
-
 	public StyleSelectionFrame(){
+		/* We can probably leave the default layout for JFrame (BorderLayout) since 
+		 * it's what the StartPanelGUI uses. Can remove the this.setLayout() call
+		 */
 		this.setLayout(new SpringLayout());
 		setTitle("Change Board Theme");
 		setSize(415, 200);
 		//sets the style selection frame beside the Mancala frame
-		setLocation(MancalaGUI.mancalaFrame.getX() + MancalaGUI.mancalaFrame.getWidth(), MancalaGUI.mancalaFrame.getY());
+		setLocationRelativeTo(null);
+		/*
+		 * This is a good idea! Except we don't want the stone selection in this one,
+		 * so it's better to copy the portion of that code we need and put it here
+		 * 
+		 * 
+		 */
 		startPanel = new StartPanelGUI();
-		
-		
 		this.add(startPanel);
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
 	}
 
 	@Override
 	public void alter(MancalaGUI g) {
-		// TODO Auto-generated method stub
 		
 	}
-
-	
-	
-
 }

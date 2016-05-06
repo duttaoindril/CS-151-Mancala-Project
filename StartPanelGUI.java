@@ -1,7 +1,9 @@
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class StartPanelGUI extends JPanel {
 	private JButton threeStonesBtn;
@@ -13,69 +15,138 @@ public class StartPanelGUI extends JPanel {
 	private JButton blueBtn;
 	private JButton purpleBtn;
 	private JButton playBtn;
+	private JButton selectedStoneBtn;
+	private JButton selectedColorBtn;
 	private int startStoneCount;
-	private Color startBoardColor;
+	private MancalaAlter startBoardColor;
 	
-	public StartPanelGUI()
-	{
+	public StartPanelGUI() {
 		int width = 550;
 		int height = 250;
 		setSize(width, height);
 		this.setBackground(Color.GRAY);
 		this.setLayout(new BorderLayout());
 		
+		//Default stone count of 3
+		startStoneCount = 3;
+		//Default board color is orange
+		startBoardColor = new AlterOrange();
+		
 		JPanel northPane = new JPanel();
 		northPane.setLayout(new BoxLayout(northPane, BoxLayout.Y_AXIS));
-		
-		JTextArea stonesTextArea = new JTextArea("Select number of stones per pit: ");
+		northPane.setBackground(Color.GRAY);
+		JTextArea stonesTextArea = new JTextArea("Select the number of stones per pit: ");
 		stonesTextArea.setEditable(false);
 		stonesTextArea.setFocusable(false);
 		JPanel stoneBtnPane = new JPanel();
+		stoneBtnPane.setPreferredSize(new Dimension(width, height/2-70));
 		threeStonesBtn = new JButton("3 Stones");
+		threeStonesBtn.setPreferredSize(new Dimension(65, 45));
+		threeStonesBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		fourStonesBtn = new JButton("4 Stones");
+		fourStonesBtn.setPreferredSize(new Dimension(65, 45));
+		fourStonesBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		//Creating stone button listeners
+		threeStonesBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectStoneButton(threeStonesBtn);
+        		startStoneCount = 3;
+        	}
+        });
+		fourStonesBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectStoneButton(fourStonesBtn);
+        		startStoneCount = 4;
+        	}
+        });
+
 		stoneBtnPane.add(threeStonesBtn);
 		stoneBtnPane.add(fourStonesBtn);
 		northPane.add(stonesTextArea);
 		northPane.add(stoneBtnPane);
 		
-		//create a southPane to contain all the color buttons
 		JPanel southPane = new JPanel();
 		southPane.setLayout(new BoxLayout(southPane, BoxLayout.Y_AXIS));
-		
-		//create colorTextpane to contain JTextArea
+		southPane.setPreferredSize(new Dimension(width, height/2+20));
+		//Creating wrapper panel for color selection prompt
 		JPanel colorTextPane = new JPanel();
-		
-		//add colorTextPane to the southPane
+		colorTextPane.setBackground(Color.GRAY);
 		southPane.add(colorTextPane);
-		
-		//display text to allow the user to select the desired theme
-		JTextArea colorTextArea = new JTextArea("What color board would you like?");	
+		//Color selection prompt
+		JTextArea colorTextArea = new JTextArea("Select your board color: ");
 		colorTextArea.setEditable(false);
 		colorTextArea.setFocusable(false);
-		
-		//add textArea to the colorTextPane
-		colorTextPane.add(colorTextArea);
-		
-		JTextArea colorChoice = new JTextArea("");
-		colorChoice.setEditable(false);
-		colorChoice.setFocusable(false);
-		colorTextPane.add(colorChoice);
-		
-		//create a color button pane
+		southPane.add(colorTextArea);
+		//Creating color button panel
 		JPanel colorBtnPane = new JPanel();
-		
-		//add colorBtnPane to the south pane
 		southPane.add(colorBtnPane);
-		
-		//create color buttons
+		//Creating color buttons
 		redBtn = new JButton("Red");
+		redBtn.setPreferredSize(new Dimension(65, 45));
+		redBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		orangeBtn = new JButton("Orange");        
+		orangeBtn.setPreferredSize(new Dimension(65, 45));
+		orangeBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		yellowBtn = new JButton("Yellow");
+		yellowBtn.setPreferredSize(new Dimension(65, 45));
+		yellowBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		greenBtn = new JButton("Green");
+		greenBtn.setPreferredSize(new Dimension(65, 45));
+		greenBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		blueBtn = new JButton("Blue");
+		blueBtn.setPreferredSize(new Dimension(65, 45));
+		blueBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		purpleBtn = new JButton("Purple");
+		purpleBtn.setPreferredSize(new Dimension(65, 45));
+		purpleBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		//add all the color buttons to the color button pane
+		//Adding color button listeners
+		redBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(redBtn);
+        		startBoardColor = new AlterRed();
+        	}
+        });
+		orangeBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(orangeBtn);
+        		startBoardColor = new AlterOrange();
+        	}
+        });
+		yellowBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(yellowBtn);
+        		startBoardColor = new AlterYellow();
+        	}
+        });
+		greenBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(greenBtn);
+        		startBoardColor = new AlterGreen();
+        	}
+        });
+		blueBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(blueBtn);
+        		startBoardColor = new AlterBlue();
+        	}
+        });
+		purpleBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		selectColorButton(purpleBtn);
+        		startBoardColor = new AlterPurple();
+        	}
+        });
+		
 		colorBtnPane.add(redBtn);
 		colorBtnPane.add(orangeBtn);
 		colorBtnPane.add(yellowBtn);
@@ -83,51 +154,32 @@ public class StartPanelGUI extends JPanel {
 		colorBtnPane.add(blueBtn);
 		colorBtnPane.add(purpleBtn);
 		
-		//create a play game button so that the user can start playing the game after
-		//selecting the desired color for the board
+		//Creating play game button to start game after selections made
+		JPanel playBtnPanel = new JPanel();
+		playBtnPanel.setPreferredSize(new Dimension(width, 60));
 		playBtn = new JButton("Play Game");
-		playBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		playBtn.setPreferredSize(new Dimension(80, 45));
+		playBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
+		playBtnPanel.add(playBtn);
+		southPane.add(playBtnPanel);
 		
-		//add the playbutton to the southPane
-		southPane.add(playBtn);
-		
-		//add northPane to the StartPanelGUI and set the location to NORTH
 		this.add(northPane, BorderLayout.NORTH);
-		//add southPane to the StartPanelGUI and set the location to SOUTH
 		this.add(southPane, BorderLayout.SOUTH);
 		this.setVisible(true);
 	}
-
-	public JButton getthreeStonesBtn() {
-		return threeStonesBtn;
+	
+	private void selectStoneButton(JButton stoneBtn) {
+		if(selectedStoneBtn != null)
+			selectedStoneBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
+		selectedStoneBtn = stoneBtn;
+		stoneBtn.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2, false));
 	}
-
-	public JButton getfourStonesBtn() {
-		return fourStonesBtn;
-	}
-
-	public JButton getRedBtn() {
-		return redBtn;
-	}
-
-	public JButton getOrangeBtn() {
-		return orangeBtn;
-	}
-
-	public JButton getYellowBtn() {
-		return yellowBtn;
-	}
-
-	public JButton getGreenBtn() {
-		return greenBtn;
-	}
-
-	public JButton getBlueBtn() {
-		return blueBtn;
-	}
-
-	public JButton getPurpleBtn() {
-		return purpleBtn;
+	
+	private void selectColorButton(JButton colorBtn) {
+		if(selectedColorBtn != null)
+			selectedColorBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
+		selectedColorBtn = colorBtn;
+		colorBtn.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2, false));
 	}
 	
 	public JButton getPlayBtn() {
@@ -138,7 +190,7 @@ public class StartPanelGUI extends JPanel {
 		return startStoneCount;
 	}
 
-	public Color getStartBoardColor() {
+	public MancalaAlter getStartBoardColor() {
 		return startBoardColor;
 	}
 }
