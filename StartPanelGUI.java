@@ -4,14 +4,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class StartPanelGUI extends JPanel {
-	private JButton threeStones;
-	private JButton fourStones;
-	private JButton red;
-	private JButton orange;
-	private JButton yellow;
-	private JButton green;
-	private JButton blue;
-	private JButton purple;
+	private JButton threeStonesBtn;
+	private JButton fourStonesBtn;
+	private JButton redBtn;
+	private JButton orangeBtn;
+	private JButton yellowBtn;
+	private JButton greenBtn;
+	private JButton blueBtn;
+	private JButton purpleBtn;
 	private JButton playBtn;
 	private int startStoneCount;
 	private Color startBoardColor;
@@ -31,78 +31,103 @@ public class StartPanelGUI extends JPanel {
 		stonesTextArea.setEditable(false);
 		stonesTextArea.setFocusable(false);
 		JPanel stoneBtnPane = new JPanel();
-		threeStones = new JButton("3 Stones");
-		fourStones = new JButton("4 Stones");
-		stoneBtnPane.add(threeStones);
-		stoneBtnPane.add(fourStones);
+		threeStonesBtn = new JButton("3 Stones");
+		fourStonesBtn = new JButton("4 Stones");
+		stoneBtnPane.add(threeStonesBtn);
+		stoneBtnPane.add(fourStonesBtn);
 		northPane.add(stonesTextArea);
 		northPane.add(stoneBtnPane);
 		
+		//create a southPane to contain all the color buttons
 		JPanel southPane = new JPanel();
 		southPane.setLayout(new BoxLayout(southPane, BoxLayout.Y_AXIS));
+		
+		//create colorTextpane to contain JTextArea
 		JPanel colorTextPane = new JPanel();
+		
+		//add colorTextPane to the southPane
 		southPane.add(colorTextPane);
+		
+		//display text to allow the user to select the desired theme
 		JTextArea colorTextArea = new JTextArea("What color board would you like?");	
 		colorTextArea.setEditable(false);
 		colorTextArea.setFocusable(false);
+		
+		//add textArea to the colorTextPane
 		colorTextPane.add(colorTextArea);
+		
 		JTextArea colorChoice = new JTextArea("");
 		colorChoice.setEditable(false);
 		colorChoice.setFocusable(false);
 		colorTextPane.add(colorChoice);
+		
+		//create a color button pane
 		JPanel colorBtnPane = new JPanel();
+		
+		//add colorBtnPane to the south pane
 		southPane.add(colorBtnPane);
-		red = new JButton("Red");
-		orange = new JButton("Orange");        
-		yellow = new JButton("Yellow");
-		green = new JButton("Green");
-		blue = new JButton("Blue");
-		purple = new JButton("Purple");
-		colorBtnPane.add(red);
-		colorBtnPane.add(orange);
-		colorBtnPane.add(yellow);
-		colorBtnPane.add(green);
-		colorBtnPane.add(blue);
-		colorBtnPane.add(purple);
+		
+		//create color buttons
+		redBtn = new JButton("Red");
+		orangeBtn = new JButton("Orange");        
+		yellowBtn = new JButton("Yellow");
+		greenBtn = new JButton("Green");
+		blueBtn = new JButton("Blue");
+		purpleBtn = new JButton("Purple");
+		
+		//add all the color buttons to the color button pane
+		colorBtnPane.add(redBtn);
+		colorBtnPane.add(orangeBtn);
+		colorBtnPane.add(yellowBtn);
+		colorBtnPane.add(greenBtn);
+		colorBtnPane.add(blueBtn);
+		colorBtnPane.add(purpleBtn);
+		
+		//create a play game button so that the user can start playing the game after
+		//selecting the desired color for the board
 		playBtn = new JButton("Play Game");
 		playBtn.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		//add the playbutton to the southPane
 		southPane.add(playBtn);
 		
+		//add northPane to the StartPanelGUI and set the location to NORTH
 		this.add(northPane, BorderLayout.NORTH);
+		//add southPane to the StartPanelGUI and set the location to SOUTH
 		this.add(southPane, BorderLayout.SOUTH);
 		this.setVisible(true);
 	}
 
-	public JButton getThreeStones() {
-		return threeStones;
+	public JButton getthreeStonesBtn() {
+		return threeStonesBtn;
 	}
 
-	public JButton getFourStones() {
-		return fourStones;
+	public JButton getfourStonesBtn() {
+		return fourStonesBtn;
 	}
 
 	public JButton getRedBtn() {
-		return red;
+		return redBtn;
 	}
 
 	public JButton getOrangeBtn() {
-		return orange;
+		return orangeBtn;
 	}
 
 	public JButton getYellowBtn() {
-		return yellow;
+		return yellowBtn;
 	}
 
 	public JButton getGreenBtn() {
-		return green;
+		return greenBtn;
 	}
 
 	public JButton getBlueBtn() {
-		return blue;
+		return blueBtn;
 	}
 
 	public JButton getPurpleBtn() {
-		return purple;
+		return purpleBtn;
 	}
 	
 	public JButton getPlayBtn() {
