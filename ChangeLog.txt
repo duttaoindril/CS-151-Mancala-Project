@@ -19,9 +19,13 @@ TRyan
 
 Thu 5/5
 TRyan
-  Made a couple changes to MancalaGUI to allow for 
+  Prepping for the start panel and alternate game boards
   
 MancalaGUI
   - Added native look and feel to GUI
   - Added "Change Board" button to a panel with the "Quit" button (Quit button is still in the North)
   - Added temp call to the start menu so it launches with the game. We can make it a JPanel later or whatever works best
+
+5/6
+TRyan
+  Hooking up start panel selections, added selection indicator for players, tweaking alternate GUIs so they swanky
