@@ -1,35 +1,20 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 public class MancalaGUI {
     private JFrame mancalaFrame;
     private JPanel btnPnl;
     private JPanel pitPanel;
     private JPanel menuPanel;
+    private JPanel gameBoardPanel;
+    private StartPanelGUI startPanel;
     private PitButton[] pitButtons;
     private JTextArea playerBScore;
     private JTextArea playerAScore;
@@ -88,12 +73,7 @@ public class MancalaGUI {
             tmpBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
 			pitButtons[i] = tmpBtn;
 			pitPanel.add(pitButtons[i]);
-		}
-        
-        // Calling this here for now, so we can test it easily
-        // Later on it could be moved to a panel if needed
-        StartPanelGUI startPanel = new StartPanelGUI();
-        
+		} 
         //JPanel Button Panel for Undo & EndTurn
         btnPnl = new JPanel();
         btnPnl.add(undo, BorderLayout.NORTH);
@@ -101,24 +81,32 @@ public class MancalaGUI {
         //JPanel for Quit and Change Board buttons
         menuPanel = new JPanel();
         menuPanel.add(changeBoardBtn);
-        menuPanel.add(quit);
+        menuPanel.add(quit);        
+        //Creating gameBoardPanel so the board can be hidden at first
+    	gameBoardPanel = new JPanel();
+    	gameBoardPanel.setLayout(new BorderLayout());
+    	gameBoardPanel.add(menuPanel, BorderLayout.NORTH);
+    	gameBoardPanel.add(btnPnl, BorderLayout.SOUTH);
+    	gameBoardPanel.add(pitPanel, BorderLayout.CENTER);
+    	gameBoardPanel.add(playerAScore, BorderLayout.EAST);
+    	gameBoardPanel.add(playerBScore, BorderLayout.WEST);
         //Frame Init
         mancalaFrame = new JFrame();
 		mancalaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mancalaFrame.setSize(200, 400);
-        mancalaFrame.add(menuPanel, BorderLayout.NORTH);
-        mancalaFrame.add(btnPnl, BorderLayout.SOUTH);
-		mancalaFrame.add(pitPanel, BorderLayout.CENTER);
-        mancalaFrame.add(playerAScore, BorderLayout.EAST);
-        mancalaFrame.add(playerBScore, BorderLayout.WEST);
+		mancalaFrame.add(gameBoardPanel);
 		mancalaFrame.pack();
         mancalaFrame.setSize(550, 250);
         mancalaFrame.setResizable(false);
         mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
+
+        //Adding start panel and hiding game board until selections are made
+        gameBoardPanel.setVisible(false);
+        startPanel = new StartPanelGUI();
+        mancalaFrame.add(startPanel);
         
-        // Doing this for now
-        startPanel.requestFocus();
+        //Game board is made visible after stone and color selection
     }
 
     public MancalaGUI(MancalaAlter alterGUI) {
@@ -128,6 +116,11 @@ public class MancalaGUI {
 
     public void changeBoard(MancalaAlter alterGUI) {
     	alterGUI.alter(this);
+    }
+    
+    public void startGame() {
+    	startPanel.setVisible(false);
+    	gameBoardPanel.setVisible(true);
     }
     
     public JFrame getFrame() {
@@ -144,6 +137,10 @@ public class MancalaGUI {
         return null;
     }
 
+    public StartPanelGUI getStartPanel() {
+    	return startPanel;
+    }
+    
     public JTextArea getMancalaA() {
     	return playerAScore;
     }

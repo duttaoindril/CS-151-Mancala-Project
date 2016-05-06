@@ -3,11 +3,10 @@
 
 public class MancalaTest {
 	public static void main(String[] args) {
-		// Implement proper undo methods
-		// Add in GUI to select num of stones (3, 4) and GUI Skin
-		// Add in all options to colors to skins, including custom color.
+		// create and hook up Change Board GUI so we can change color during game (Nan is working on this)
+		// hook up color and stone selection functionality (Tom is working on this)
 		DataModel d = new DataModel();
-		MancalaGUI g = new MancalaGUI(new MancalaColorOrange()); // Fully Color In Board
+		MancalaGUI g = new MancalaGUI(new AlterRed()); // Fully Color In Board
 		Controller c = new Controller(g, d);
 	}
 }

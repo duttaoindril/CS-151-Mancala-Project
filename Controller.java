@@ -6,12 +6,13 @@ import javax.swing.*;
 public class Controller implements ChangeListener {
     private DataModel dataModel;
     private MancalaGUI gui;
-    private StartPanelGUI startScreen;
+    private StartPanelGUI startPanel;
 
     public Controller(MancalaGUI g, DataModel d) {
         gui = g;
         dataModel = d;
         dataModel.attach(this);
+        startPanel = gui.getStartPanel();
         attachControllers();
         stateChanged(null);
     }
@@ -41,47 +42,55 @@ public class Controller implements ChangeListener {
                 System.exit(0);
             }
         });
-        startScreen.getRedBtn().addActionListener(new ActionListener() {
+        startPanel.getRedBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterRed());
+//        		startPanel.
         	}
         });
-        startScreen.getOrangeBtn().addActionListener(new ActionListener() {
+        startPanel.getOrangeBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterOrange());
         	}
         });
-        startScreen.getYellowBtn().addActionListener(new ActionListener() {
+        startPanel.getYellowBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterYellow());
         	}
         });
-        startScreen.getGreenBtn().addActionListener(new ActionListener() {
+        startPanel.getGreenBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterGreen());
         	}
         });
-        startScreen.getBlueBtn().addActionListener(new ActionListener() {
+        startPanel.getBlueBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterBlue());
         	}
         });
-        startScreen.getPurpleBtn().addActionListener(new ActionListener() {
+        startPanel.getPurpleBtn().addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
         		gui.changeBoard(new AlterPurple());
         	}
         });
+        startPanel.getPlayBtn().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gui.startGame();
+			}
+		});
     }
 
     public void stateChanged(ChangeEvent e) {
-        gui.getButton("playerA").setText("A: "+dataModel.getPlayerAScore());
-        gui.getButton("playerB").setText("B: "+dataModel.getPlayerBScore());
+        gui.getMancalaA().setText("A: "+dataModel.getPlayerAScore());
+        gui.getMancalaB().setText("B: "+dataModel.getPlayerBScore());
         gui.getButton("undo").setEnabled(!dataModel.getLatestState().isNull() && dataModel.getUndosLeft() > 0);
         gui.getButton("end").setEnabled(dataModel.getSwitch());
         if(dataModel.getPlayerTurn())
