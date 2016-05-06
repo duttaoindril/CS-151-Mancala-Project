@@ -37,11 +37,15 @@ public class StartPanelGUI extends JFrame {
 		stoneBtnPane.add(fourStones);
 		northPane.add(stonesTextArea);
 		northPane.add(stoneBtnPane);
+		stonesTextArea.setEditable(false);
+		stonesTextArea.setFocusable(false);
 		
 		JPanel southPane = new JPanel();
 		southPane.setLayout(new BoxLayout(southPane, BoxLayout.Y_AXIS));
 		JTextArea colorTextArea = new JTextArea("What color board would you like?");
-		southPane.add(stonesTextArea);
+		southPane.add(colorTextArea);
+		colorTextArea.setEditable(false);
+		colorTextArea.setFocusable(false);
 		JPanel colorBtnPane = new JPanel();
 		southPane.add(colorBtnPane);		
 		red = new JButton("Red");
@@ -50,10 +54,51 @@ public class StartPanelGUI extends JFrame {
 		green = new JButton("Green");
 		blue = new JButton("Blue");
 		purple = new JButton("Purple");
-		colorBtnPane.add(fourStones);
+		colorBtnPane.add(red);
+		colorBtnPane.add(orange);
+		colorBtnPane.add(yellow);
+		colorBtnPane.add(green);
+		colorBtnPane.add(blue);
+		colorBtnPane.add(purple);
 		
 		this.add(northPane, BorderLayout.NORTH);
 		this.add(southPane, BorderLayout.SOUTH);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
+	
+	public JButton getThreeStones() 
+	{
+		return threeStones;
+	}
+	public JButton getFourStones() 
+	{
+		return fourStones;
+	}
+	public JButton getRedBtn() 
+	{
+		return red;
+	}
+	public JButton getOrangeBtn() 
+	{
+		return orange;
+	}
+	public JButton getYellowBtn() 
+	{
+		return yellow;
+	}
+	public JButton getGreenBtn() 
+	{
+		return green;
+	}
+	public JButton getBlueBtn() 
+	{
+		return blue;
+	}
+	public JButton getPurpleBtn() 
+	{
+		return purple;
+	}
+	
+	
 }
