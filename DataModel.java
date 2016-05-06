@@ -57,6 +57,8 @@ public class DataModel {
 
     public void setStartingStones(int numStones) {
     	startingStones = numStones;
+    	for(int i = 0; i < pits.length; i++)
+            pits[i].setScore(startingStones);
     	update();
     }
     

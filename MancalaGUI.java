@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
@@ -16,16 +16,17 @@ public class MancalaGUI {
     private JPanel menuPanel;
     private JPanel gameBoardPanel;
     private StartPanelGUI startPanel;
+    private StyleSelectionPanel stylePanel;
     private PitButton[] pitButtons;
-    private JTextArea playerBScore;
-    private JTextArea playerAScore;
+    private JButton playerBScore;
+    private JButton playerAScore;
     private JButton endTurn;
     private JButton undo;
     private JButton changeBoardBtn;
     private JButton quit;
 
     public MancalaGUI() {
-    	// Telling GUI to use native look and feel for JComponents
+    	//Telling GUI to use native look and feel for JComponents
     	try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -39,12 +40,18 @@ public class MancalaGUI {
 		}
     	
         //PlayerA Score area
-        playerAScore = new JTextArea("0");
+        playerAScore = new JButton("0");
         playerAScore.setEnabled(false);
+        playerAScore.setFocusable(false);
+        playerAScore.setBackground(Color.DARK_GRAY);
+        playerAScore.setForeground(Color.BLACK);
         playerAScore.setBorder(new EmptyBorder(10, 10, 10, 10));
         //playerB Score area
-        playerBScore = new JTextArea("0");
+        playerBScore = new JButton("0");
         playerBScore.setEnabled(false);
+        playerBScore.setFocusable(false);
+        playerBScore.setBackground(Color.DARK_GRAY);
+        playerBScore.setForeground(Color.BLACK);
         playerBScore.setBorder(new EmptyBorder(10, 10, 10, 10));
         //End Turn Button
         endTurn = new JButton("End Turn Player A");
@@ -94,7 +101,6 @@ public class MancalaGUI {
         //Frame Init
         mancalaFrame = new JFrame();
 		mancalaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mancalaFrame.setSize(200, 400);
 		mancalaFrame.setLocationRelativeTo(null);
 		mancalaFrame.setTitle("Mancala");
 		mancalaFrame.add(gameBoardPanel);
@@ -103,22 +109,40 @@ public class MancalaGUI {
         mancalaFrame.setResizable(false);
         mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
-        //Adding start panel and hiding game board until selections are made
+        //Hiding game board until selections are made
         gameBoardPanel.setVisible(false);
+        //Adding style selection panel and hiding it
+        stylePanel = new StyleSelectionPanel();
+        mancalaFrame.add(stylePanel);
+        stylePanel.setVisible(false);
+
+        //Adding start panel 
         startPanel = new StartPanelGUI();
         mancalaFrame.add(startPanel);
-        
-        //Game board is made visible in Controller after stone and color selection
+
+        //Game board is made visible after stone and color selection
     }
     
-    public void startGame(MancalaAlter alterGUi) {
-    	alterGUi.alter(this);
+    public void startGame(MancalaAlter alterGui) {
+    	if(alterGui != null)
+    		alterGui.alter(this);
+    	else
+    		//Default to orange if not selection
+    		new AlterOrange().alter(this);
     	startPanel.setVisible(false);
     	gameBoardPanel.setVisible(true);
     }
     
-    public JFrame getFrame() {
-        return mancalaFrame;
+    public void changeBoard(MancalaAlter alterGui) {
+    	if(alterGui != null)
+    		alterGui.alter(this);
+    	stylePanel.setVisible(false);
+    	gameBoardPanel.setVisible(true);
+    }
+    
+    public void showStylePanel() {
+    	gameBoardPanel.setVisible(false);
+    	stylePanel.setVisible(true);
     }
 
     public JPanel getPanel(String pnlRequest) {
@@ -135,11 +159,15 @@ public class MancalaGUI {
     	return startPanel;
     }
     
-    public JTextArea getMancalaA() {
+    public StyleSelectionPanel getStylePanel() {
+    	return stylePanel;
+    }
+    
+    public JButton getMancalaA() {
     	return playerAScore;
     }
     
-    public JTextArea getMancalaB() {
+    public JButton getMancalaB() {
     	return playerBScore;
     }
     

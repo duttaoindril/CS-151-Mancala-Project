@@ -7,12 +7,14 @@ public class Controller implements ChangeListener {
     private DataModel dataModel;
     private MancalaGUI gui;
     private StartPanelGUI startPanel;
-
+    private StyleSelectionPanel styleFrame;
+    
     public Controller(MancalaGUI g, DataModel d) {
         gui = g;
         dataModel = d;
         dataModel.attach(this);
         startPanel = gui.getStartPanel();
+        styleFrame = gui.getStylePanel();
         attachControllers();
         stateChanged(null);
     }
@@ -20,38 +22,49 @@ public class Controller implements ChangeListener {
     public void attachControllers() {
         for(PitButton btn : gui.getPits())
             btn.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+            	@Override
+            	public void actionPerformed(ActionEvent e) {
                     dataModel.replaceState(new State(dataModel));
                     dataModel.clicked(btn.getIndex());
                     dataModel.update();
                 }
             });
         gui.getButton("undo").addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
                 dataModel.popUndo();
             }
         });
         gui.getButton("end").addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
                 dataModel.switchTurn();
             }
         });
         gui.getButton("quit").addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
                 System.out.println("Thank you!\n");
                 System.exit(0);
             }
         });
         gui.getButton("changeBoardBtn").addActionListener(new ActionListener() {
-
-        	//when clicking the changeBoard button, a new window is opened for the player to change the theme
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StyleSelectionFrame styleFrame = new StyleSelectionFrame();			
+				//Opens alternate game board menu while game in progress
+				gui.showStylePanel();
 			}
         });
+        /*
+         * Add an ActionListener to styleFrame.getDoneBtn()
+         * Tell it to call gui.changeBoard when clicked
+         * and pass changeBoard a reference to styleFrame's
+         * MancalaAlter object.
+         * I think it's called getBoardColor()
+         */
+
+        
         startPanel.getPlayBtn().addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dataModel.setStartingStones(startPanel.getStartStoneCount());
