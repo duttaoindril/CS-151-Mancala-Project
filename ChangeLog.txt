@@ -48,3 +48,7 @@ TRyan
   Controller
     - Moved start panel button listeners to the StartPanelGUI class. Then abstracted them into the BoardSelectionPanel class so they could be reused with the StyleSelectionPanel
     - Added listener for StartPanelGUI's "Play Game" button so we can pass starting stone count to DataModel and the selected board color to MancalaGUI
+
+5/7
+TRyan
+  Finished javadocs and pushed hopefully final version as project.zip
