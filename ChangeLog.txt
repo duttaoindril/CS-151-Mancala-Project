@@ -29,3 +29,22 @@ MancalaGUI
 5/6
 TRyan
   Hooking up start panel selections, added selection indicator for players, tweaking alternate GUIs so they swanky
+
+  MancalaGUI
+    - Moved action listener for Change Board button to Controller
+    - Added title "Mancala" to the frame
+    - Changed the stores (mancalas, big pits, whatever they are) back to JButtons since they fit better with the UI
+
+  Alter[color] Buddies
+    - Added some extra color changes to make the game board swanky (really just button background colors)
+
+  StartPanelGUI
+    - Added border to selected buttons so players can see their choices (wanted to do more, but time is a thing apparently...)
+
+  DataModel
+    - Added startingStones and setStartingStones(int) to support starting stone count selection
+    - Added a mutator method to set the starting stone count and call update()
+
+  Controller
+    - Moved start panel button listeners to the StartPanelGUI class. Then abstracted them into the BoardSelectionPanel class so they could be reused with the StyleSelectionPanel
+    - Added listener for StartPanelGUI's "Play Game" button so we can pass starting stone count to DataModel and the selected board color to MancalaGUI
