@@ -1,6 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,8 +15,9 @@ import javax.swing.border.EmptyBorder;
  * or during the game
  */
 public class StyleSelectionPanel extends JPanel {
-	private JButton doneBtn;
-	private BoardSelectionPanel boardSelectionPanel;
+	
+	public static JButton doneBtn;
+	private static BoardSelectionPanel boardSelectionPanel;
 
 	public StyleSelectionPanel(){
 		/*
@@ -35,16 +41,17 @@ public class StyleSelectionPanel extends JPanel {
 		 * anything there. I made it earlier because we need the 
 		 * exact same stuff for the start menu.
 		 */
+		
 		//Setting width and height to match MancalaGUI
 		int width = 550;
 		int height = 250;
 		setSize(width, height);
 		
 		// We need to set the layout manager for this to a BorderLayout
-		
+		this.setLayout(new FlowLayout());
 		
 		//Make boardSelectionPanel a new BoardSelectionPanel() here
-
+		BoardSelectionPanel boardThemeChanger = new BoardSelectionPanel();
 		
 		/*
 		 * I went ahead and did this part since it was a little 
@@ -64,17 +71,22 @@ public class StyleSelectionPanel extends JPanel {
 		doneBtnPanel.add(doneBtn);
 		
 		//Add doneBtnPanel to boardSelectionPanel so it will show up
+	    this.add(doneBtnPanel);
 		//I ran into some layout issues when I didn't on the other one
-
 		
 		//Add boardSelectionPanel to this and set this to visible
-
-		
+		this.add(boardThemeChanger);
+		this.setVisible(true);		
 	}
 	
-	//Need a getter method for returning a MancalaAlter object like boardSelectionPanel.getBoardSelection()
-
+	//getter method for returning a MancalaAlter object like boardSelectionPanel.getBoardSelection()
+	public static MancalaAlter getBoardSelection(){
+		return boardSelectionPanel.getBoardSelection();
+	}
 	
-	//Need a getter for returning the doneBtn, so Controller can use it
+	//getter for returning the doneBtn, so Controller can use it
+	public JButton getDoneBtn(){
+		return doneBtn;		
+	}
 
 }

@@ -4,7 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Controller implements ChangeListener {
-    private DataModel dataModel;
+   
+	private DataModel dataModel;
     private MancalaGUI gui;
     private StartPanelGUI startPanel;
     private StyleSelectionPanel styleFrame;
@@ -62,7 +63,16 @@ public class Controller implements ChangeListener {
          * MancalaAlter object.
          * I think it's called getBoardColor()
          */
+      
+        styleFrame.getDoneBtn().addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gui.changeBoard(StyleSelectionPanel.getBoardSelection());	
+				gui.startGame(startPanel.getStartBoardColor());
+			}
+        	
+        });
         
         startPanel.getPlayBtn().addActionListener(new ActionListener() {
 			@Override
