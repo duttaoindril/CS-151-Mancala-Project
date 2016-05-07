@@ -10,6 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * JPanel containing alternate board selection UI. Encapsulates all necessary
+ * components and listeners for color selection. Selected buttons are highlighted
+ * when clicked and the corresponding MancalaAlter value is stored.
+ * 
+ * @author Team 7
+ * 
+ */
 public class BoardSelectionPanel extends JPanel {
 	private JButton redBtn;
 	private JButton orangeBtn;
@@ -21,6 +29,10 @@ public class BoardSelectionPanel extends JPanel {
 	private JButton selectedColorBtn;
 	private MancalaAlter startBoardColor;
 	
+	/**
+	 * Instantiates a new BoardSelectionPanel with text prompt and
+	 * six color selection buttons.
+	 */
 	public BoardSelectionPanel() {
 		this.setBackground(Color.DARK_GRAY);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -124,6 +136,11 @@ public class BoardSelectionPanel extends JPanel {
 		colorBtnPane.add(purpleBtn);
 	}
 	
+	/**
+	 * Highlights clicked button with a blue border.
+	 * 
+	 * @param colorBtn		JButton to be highlighted.
+	 */
 	private void selectColorButton(JButton colorBtn) {
 		if(selectedColorBtn != null)
 			selectedColorBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -131,6 +148,11 @@ public class BoardSelectionPanel extends JPanel {
 		colorBtn.setBorder(BorderFactory.createLineBorder(new Color(94,223,255), 2, false));
 	}
 	
+	/**
+	 * Gets the MancalaAlter corresponding to the selected button.
+	 * 
+	 * @return				MancalaAlter object corresponding to selected button.
+	 */
 	public MancalaAlter getBoardSelection() {
 		return startBoardColor;
 	}

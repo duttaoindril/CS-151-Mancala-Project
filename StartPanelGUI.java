@@ -5,6 +5,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * JPanel consisting of a starting stones selection panel, BoardSelectionPanel, and
+ * a Play Game button. Clicked buttons are highlighted to indicate selected options 
+ * to the player. 
+ * 
+ * @author Team 7
+ *
+ */
 public class StartPanelGUI extends JPanel {
 	private JButton threeStonesBtn;
 	private JButton fourStonesBtn;
@@ -13,6 +21,9 @@ public class StartPanelGUI extends JPanel {
 	private int startStoneCount;
 	private BoardSelectionPanel boardSelectionPanel;
 	
+	/**
+	 * Instantiates GUI components for the game start menu.
+	 */
 	public StartPanelGUI() {
 		int width = 550;
 		int height = 250;
@@ -23,6 +34,7 @@ public class StartPanelGUI extends JPanel {
 		//Default stone count of 3
 		startStoneCount = 3;
 		
+		//Creating the north panel with stone selection components
 		JPanel northPane = new JPanel();
 		northPane.setBackground(Color.DARK_GRAY);
 		northPane.setLayout(new BoxLayout(northPane, BoxLayout.Y_AXIS));
@@ -31,6 +43,7 @@ public class StartPanelGUI extends JPanel {
 		stonesTextArea.setForeground(Color.WHITE);
 		stonesTextArea.setEditable(false);
 		stonesTextArea.setFocusable(false);
+		//Creating stone button wrapper
 		JPanel stoneBtnPane = new JPanel();
 		stoneBtnPane.setBackground(Color.DARK_GRAY);
 		stoneBtnPane.setPreferredSize(new Dimension(width, height/2-70));
@@ -87,6 +100,11 @@ public class StartPanelGUI extends JPanel {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Highlights clicked button with a blue border.
+	 * 
+	 * @param colorBtn		JButton to be highlighted.
+	 */
 	private void selectStoneButton(JButton stoneBtn) {
 		if(selectedStoneBtn != null)
 			selectedStoneBtn.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -94,14 +112,30 @@ public class StartPanelGUI extends JPanel {
 		stoneBtn.setBorder(BorderFactory.createLineBorder(new Color(94,223,255), 2, false));
 	}
 	
+	/**
+	 * Gets a reference to the Play Game button.
+	 * 
+	 * @return		A reference to the Play Game button.
+	 */
 	public JButton getPlayBtn() {
 		return playBtn;
 	}
 
+	/**
+	 * Gets the selected value for starting stones.
+	 * 
+	 * @return		The currently selected starting stone count.
+	 */
 	public int getStartStoneCount() {
 		return startStoneCount;
 	}
 
+	/**
+	 * Gets the MancalaAlter object corresponding to the currently 
+	 * selected board color option.
+	 * 
+	 * @return		An appropriate MancalaAlter object of the currently selected color.
+	 */
 	public MancalaAlter getStartBoardColor() {
 		return boardSelectionPanel.getBoardSelection();
 	}
