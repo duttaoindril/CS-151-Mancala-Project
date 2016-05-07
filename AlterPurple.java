@@ -34,14 +34,14 @@ public class AlterPurple implements MancalaAlter {
     public void setColors(MancalaGUI gui) {
     	gui.getPanel("btns").setBackground(color);
     	gui.getPanel("menu").setBackground(color);
-    	gui.getPanel("pits").setBackground(Color.DARK_GRAY);
+    	gui.getPanel("pits").setBackground(color);
     	gui.getButton("undo").setBackground(color);
     	gui.getButton("end").setBackground(color);
     	gui.getButton("changeBoardBtn").setBackground(color);
     	gui.getButton("quit").setBackground(color);
     	
     	for(JButton pitBtn : gui.getPits()) {
-    		pitBtn.setBackground(Color.LIGHT_GRAY);
+    		pitBtn.setBackground(color);
     	}
     }
 }
