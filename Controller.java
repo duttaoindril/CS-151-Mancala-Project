@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+
+
 public class Controller implements ChangeListener {
    
 	private DataModel dataModel;
@@ -10,6 +12,12 @@ public class Controller implements ChangeListener {
     private StartPanelGUI startPanel;
     private StyleSelectionPanel styleFrame;
     
+    /**
+     * Controller instructor
+     * 
+     * @param g
+     * @param d
+     */
     public Controller(MancalaGUI g, DataModel d) {
         gui = g;
         dataModel = d;
@@ -19,29 +27,38 @@ public class Controller implements ChangeListener {
         attachControllers();
         stateChanged(null);
     }
-
+    /**
+     * attach the controller to dataModel, all of the buttons
+     */
     public void attachControllers() {
         for(PitButton btn : gui.getPits())
+        	
+        	//add actionListener to each pit button
             btn.addActionListener(new ActionListener() {
             	@Override
             	public void actionPerformed(ActionEvent e) {
                     dataModel.replaceState(new State(dataModel));
-                    dataModel.clicked(btn.getIndex());
+                    dataModel.clicked(btn.getIndex());//update index after clicking on the selected pit
                     dataModel.update();
                 }
             });
+        //add actionListener to undoBtn
         gui.getButton("undo").addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
                 dataModel.popUndo();
             }
         });
+        
+        //add actionListener to endBtn
         gui.getButton("end").addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
                 dataModel.switchTurn();
             }
         });
+        
+        //add actionListener to quitBtn
         gui.getButton("quit").addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
@@ -49,6 +66,8 @@ public class Controller implements ChangeListener {
                 System.exit(0);
             }
         });
+        
+        //add actionListener to changeBoardBtn
         gui.getButton("changeBoardBtn").addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -61,19 +80,20 @@ public class Controller implements ChangeListener {
          * Tell it to call gui.changeBoard when clicked
          * and pass changeBoard a reference to styleFrame's
          * MancalaAlter object.
-         * I think it's called getBoardColor()
+         * 
          */
       
         styleFrame.getDoneBtn().addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gui.changeBoard(StyleSelectionPanel.getBoardSelection());	
-				gui.startGame(startPanel.getStartBoardColor());
+				gui.changeBoard(styleFrame.getBoardSelection());	
+				
 			}
         	
         });
         
+      //add actionListener to playBtn
         startPanel.getPlayBtn().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +102,10 @@ public class Controller implements ChangeListener {
 			}
 		});
     }
-
+    
+    /**
+     * Updates view with current game state when changes are made to model.
+     */
     public void stateChanged(ChangeEvent e) {
         gui.getMancalaA().setText("A: "+dataModel.getPlayerAScore());
         gui.getMancalaB().setText("B: "+dataModel.getPlayerBScore());
