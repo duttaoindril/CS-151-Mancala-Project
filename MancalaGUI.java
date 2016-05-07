@@ -9,6 +9,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Main class for the view portion of the application. Contains components for
+ * the game board and manages the start and board style selection menus.
+ * 
+ * @author Team 7
+ *
+ */
 public class MancalaGUI {
     private JFrame mancalaFrame;
     private JPanel btnPnl;
@@ -25,6 +32,9 @@ public class MancalaGUI {
     private JButton changeBoardBtn;
     private JButton quit;
 
+    /**
+     * Instantiates the game board, start panel, and board style selection panel.
+     */
     public MancalaGUI() {
     	//Telling GUI to use native look and feel for JComponents
     	try {
@@ -39,6 +49,7 @@ public class MancalaGUI {
 			e.printStackTrace();
 		}
     	
+    	//Using disabled JButtons for the stores since they look good
         //PlayerA Score area
         playerAScore = new JButton("0");
         playerAScore.setEnabled(false);
@@ -73,7 +84,7 @@ public class MancalaGUI {
         pitButtons = new PitButton[12];
         PitButton tmpBtn;
         for(int i = 0; i < pitButtons.length; i++) {
-			tmpBtn = new PitButton("3", i);
+        	tmpBtn = new PitButton("3", i);
             if(i < 6)
             tmpBtn.setEnabled(false);
 			tmpBtn.setBorderPainted(false);
@@ -109,8 +120,10 @@ public class MancalaGUI {
         mancalaFrame.setResizable(false);
         mancalaFrame.setLocationRelativeTo(null);
         mancalaFrame.setVisible(true);
+        
         //Hiding game board until selections are made
         gameBoardPanel.setVisible(false);
+        
         //Adding style selection panel and hiding it
         stylePanel = new StyleSelectionPanel();
         mancalaFrame.add(stylePanel);
@@ -123,16 +136,28 @@ public class MancalaGUI {
         //Game board is made visible after stone and color selection
     }
     
+    /**
+     * Called after the Play Game button is clicked on the start menu.
+     * Hides the start panel and makes the game board panel visible.
+     * 
+     * @param alterGui		The MancalaAlter strategy which will alter this GUI.
+     */
     public void startGame(MancalaAlter alterGui) {
     	if(alterGui != null)
     		alterGui.alter(this);
     	else
-    		//Default to orange if not selection
+    		//Default to orange if no selection was made
     		new AlterOrange().alter(this);
     	startPanel.setVisible(false);
     	gameBoardPanel.setVisible(true);
     }
-    
+
+    /**
+     * Updates context's GUI with the alter algorithm from the given concrete
+     * implementation of a MancalaAlter strategy.
+     * 
+     * @param alterGui		The MancalaAlter strategy which will alter this GUI.
+     */
     public void changeBoard(MancalaAlter alterGui) {
     	if(alterGui != null)
     		alterGui.alter(this);
@@ -140,11 +165,20 @@ public class MancalaGUI {
     	gameBoardPanel.setVisible(true);
     }
     
+    /**
+     * Shows the style selection panel and hides the game board.
+     */
     public void showStylePanel() {
     	gameBoardPanel.setVisible(false);
     	stylePanel.setVisible(true);
     }
 
+    /**
+     * Gets a reference to a GUI JPanel corresponding to the given String.
+     * 
+     * @param pnlRequest		String requesting a specific JPanel belonging to this GUI.
+     * @return					A reference to the requested JPanel.
+     */
     public JPanel getPanel(String pnlRequest) {
         if(pnlRequest.equals("pits"))
             return pitPanel;
@@ -155,26 +189,57 @@ public class MancalaGUI {
         return null;
     }
 
+    /**
+     * Gets a reference to the start menu panel.
+     * 
+     * @return		A reference to the start menu panel.
+     */
     public StartPanelGUI getStartPanel() {
     	return startPanel;
     }
     
+    /**
+     * Gets a reference to the style selection panel.
+     * 
+     * @return		A reference to the style selection panel.
+     */
     public StyleSelectionPanel getStylePanel() {
     	return stylePanel;
     }
     
+    /**
+     * Gets a reference to Player A's store.
+     * 
+     * @return		A reference to the playerAScore object.
+     */
     public JButton getMancalaA() {
     	return playerAScore;
     }
     
+    /**
+     * Gets a reference to Player B's store.
+     * 
+     * @return		A reference to the playerBScore object.
+     */
     public JButton getMancalaB() {
     	return playerBScore;
     }
     
+    /**
+     * Gets an array of PitButton objects representing the 12 pits.
+     * 
+     * @return		A reference to the PitButton array named pits[].
+     */
     public PitButton[] getPits() {
         return pitButtons;
     }
     
+    /**
+     * Gets a reference to a JButton corresponding to the given String.
+     * 
+     * @param btnRequest		String requesting a specific JButton belonging to this GUI.
+     * @return					A reference to the requested JButton.
+     */
     public JButton getButton(String btnRequest) {
         if(btnRequest.equals("end"))
             return endTurn;

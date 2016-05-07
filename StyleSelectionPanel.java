@@ -6,21 +6,28 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Encapsulates components necessary for game board style selection.
+ * 
+ * @author Team 7
+ *
+ */
 public class StyleSelectionPanel extends JPanel {
-	
 	public JButton doneBtn;
 	private BoardSelectionPanel boardThemeChanger;
 
+	/**
+	 * Initializes all components needed for the style selection panel.
+	 */
 	public StyleSelectionPanel(){
 		//Setting width and height to match MancalaGUI
 		int width = 550;
 		int height = 250;
 		setSize(width, height);
 		
-		//set the layout manager for this to a BorderLayout
 		this.setLayout(new BorderLayout());
 		
-		//create a new object for BoardSelectionPanel
+		//Creating a new color selection panel
 		boardThemeChanger = new BoardSelectionPanel();
 		
 		//Creating Done button wrapper
@@ -37,17 +44,23 @@ public class StyleSelectionPanel extends JPanel {
 		doneBtnPanel.add(doneBtn);
 		boardThemeChanger.add(doneBtnPanel);
 		
-		//Add boardSelectionPanel to this and set this to visible
 		this.add(boardThemeChanger);
-		this.setVisible(true);		
 	}
 	
-	//getter method for returning a MancalaAlter object like boardSelectionPanel.getBoardSelection()
+	/**
+	 * Gets a reference to the selected board style.
+	 * 
+	 * @return		A MancalaAlter reference of the selected type.
+	 */
 	public MancalaAlter getBoardSelection(){
 		return boardThemeChanger.getBoardSelection();
 	}
 	
-	//getter for returning the doneBtn, so Controller can use it
+	/**
+	 * Gets a reference to the Done button.
+	 * 
+	 * @return		A JButton reference to the Done button.
+	 */
 	public JButton getDoneBtn(){
 		return doneBtn;		
 	}

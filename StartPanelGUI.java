@@ -22,7 +22,7 @@ public class StartPanelGUI extends JPanel {
 	private BoardSelectionPanel boardSelectionPanel;
 	
 	/**
-	 * Instantiates GUI components for the game start menu.
+	 * Initializes GUI components for the game start menu.
 	 */
 	public StartPanelGUI() {
 		int width = 550;
@@ -97,7 +97,6 @@ public class StartPanelGUI extends JPanel {
 		
 		this.add(northPane, BorderLayout.NORTH);
 		this.add(boardSelectionPanel, BorderLayout.SOUTH);
-		this.setVisible(true);
 	}
 	
 	/**

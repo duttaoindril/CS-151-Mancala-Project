@@ -1,6 +1,6 @@
-import javax.swing.*;
+import java.awt.Color;
 
-import java.awt.*;
+import javax.swing.JButton;
 
 /**
  * Concrete strategy implementation of the MancalaAlter interface. 
@@ -13,7 +13,7 @@ public class AlterGreen implements MancalaAlter {
 	private Color color;
 
 	/**
-	 * Instantiates a MancalaAlter for the color green: 65 155 18
+	 * Initializes a MancalaAlter for the color green: 65 155 18
 	 */
     public AlterGreen() {
     	color = new Color(65, 155, 18);

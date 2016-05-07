@@ -25,12 +25,11 @@ public class BoardSelectionPanel extends JPanel {
 	private JButton greenBtn;
 	private JButton blueBtn;
 	private JButton purpleBtn;
-	private JButton playBtn;
 	private JButton selectedColorBtn;
 	private MancalaAlter startBoardColor;
 	
 	/**
-	 * Instantiates a new BoardSelectionPanel with text prompt and
+	 * Initializes a new BoardSelectionPanel with text prompt and
 	 * six color selection buttons.
 	 */
 	public BoardSelectionPanel() {
